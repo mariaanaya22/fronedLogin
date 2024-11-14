@@ -1,49 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom';
 import './App.css';
 
-const Login = () => {
+const Registro = () => {
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [mensaje, setMensaje] = useState('');
 
-
   const enviarLogin = async (e) => {
     e.preventDefault();
-    setMensaje(''); 
+    setMensaje('');
     try {
-   
-      const response = await axios.post('http://localhost:2007/api/login', {
+      const response = await axios.post('http://localhost:2007/api/registrar', {
         nombre,
         apellido,
         contraseña
       });
 
       localStorage.setItem('token', response.data.token);
-
- 
-      setMensaje('Login exitoso');
-
-    } catch (error) {
-      console.error(error);
-      setMensaje('Error: Credenciales incorrectas o problema en el servidor');
-    }
-  };
-
-
-  const registrarUsuario = async (e) => {
-    e.preventDefault();
-    setMensaje('');
-
-    try {
-      const response = await axios.post('http://localhost:2007/api/login', {
-        nombre,
-        apellido,
-        contraseña
-      });
-
       setMensaje('Usuario registrado exitosamente');
     } catch (error) {
       console.error(error);
@@ -53,7 +28,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <h2>Iniciar sesión o Registrarse</h2>
+      <h2>Registrarse</h2>
 
       <form onSubmit={enviarLogin} className="login-form">
         <div className="input-group">
@@ -92,19 +67,12 @@ const Login = () => {
             required 
           />
         </div>
-        <button type="submit" className="btn-submit">Iniciar sesión</button>
+        <button type="submit" className="btn-submit">Registrarse</button>
       </form>
-
-      <div className="divider">o</div>
-
-      <form onSubmit={registrarUsuario} className="login-form">
-        <button type="submit" className="btn-submit">Registrar usuario</button>
-      </form>
-
 
       {mensaje && <p>{mensaje}</p>}
     </div>
   );
 };
 
-export default Login;
+export default Registro;

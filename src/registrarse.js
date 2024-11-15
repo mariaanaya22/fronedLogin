@@ -1,38 +1,49 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './App.css';
+import { Link } from 'react-router-dom';
+import './registrarse.css'; 
 
 const Registro = () => {
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [mensaje, setMensaje] = useState('');
+  const [mensajeTipo, setMensajeTipo] = useState('');
 
-  const enviarLogin = async (e) => {
+  const registrarUsuario = async (e) => {
     e.preventDefault();
     setMensaje('');
+    setMensajeTipo('');
+    if (!nombre || !apellido || !contraseña) {
+        setMensaje('Por favor, completa todos los campos.');
+        setMensajeTipo('error');
+        return;
+      }
+
     try {
-      const response = await axios.post('http://localhost:2007/api/registrar', {
+      const response = await axios.post('http://localhost:2007/api/registrar', {  // Endpoint de registro
         nombre,
         apellido,
         contraseña
       });
 
-      localStorage.setItem('token', response.data.token);
       setMensaje('Usuario registrado exitosamente');
+      setMensajeTipo('exito');
     } catch (error) {
       console.error(error);
       setMensaje('Error al registrar usuario');
+      setMensajeTipo('error'); 
     }
   };
 
   return (
-    <div className="login-container">
+    <div className="registro-container">
       <h2>Registrarse</h2>
 
-      <form onSubmit={enviarLogin} className="login-form">
+      {/* Formulario de Registro */}
+      <form onSubmit={registrarUsuario} className="login-form">
         <div className="input-group">
-          <label htmlFor="nombre">Nombre</label>
+          <label className='label-resgistro'  htmlFor="nombre">Nombre</label>
           <input 
             type="text" 
             id="nombre" 
@@ -44,7 +55,7 @@ const Registro = () => {
           />
         </div>
         <div className="input-group">
-          <label htmlFor="apellido">Apellido</label>
+          <label className='label-resgistro'  htmlFor="apellido">Apellido</label>
           <input 
             type="text" 
             id="apellido" 
@@ -55,8 +66,8 @@ const Registro = () => {
             required 
           />
         </div>
-        <div className="input-group">
-          <label htmlFor="contraseña">Contraseña</label>
+        <div className="input-group-resgistro">
+          <label className='label-resgistro'  htmlFor="contraseña">Contraseña</label>
           <input 
             type="password" 
             id="contraseña" 
@@ -67,10 +78,18 @@ const Registro = () => {
             required 
           />
         </div>
-        <button type="submit" className="btn-submit">Registrarse</button>
+        <button type="submit" className="btn-submit">Registrar usuario</button>
       </form>
+      <p className='label-resgistro' >
+        ¿Ya tienes una cuenta? <Link  className='registro'  to="/">Inicia sesión aquí</Link>
+      </p>
 
-      {mensaje && <p>{mensaje}</p>}
+   
+      {mensaje && (
+        <p className={mensajeTipo === 'exito' ? 'mensaje-exito' : 'mensaje-error'}>
+          {mensaje}
+        </p>
+      )} 
     </div>
   );
 };

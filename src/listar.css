@@ -1,0 +1,71 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.lista-usuarios-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%; 
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box; 
+    overflow-y: auto; 
+}
+
+.lista-usuarios-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #96773a;
+    text-align: center;
+    text-transform: uppercase;
+   
+}
+
+
+.lista-usuarios-list {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+}
+
+
+.lista-usuarios-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+}
+
+.lista-usuarios-name {
+    font-size: 1.2rem;
+}
+
+.lista-usuarios-delete-button {
+    background-color: #96773a;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+.lista-usuarios-login-button {
+    margin-top: 20px;
+    text-decoration: none;
+    color: white;
+    background-color: #96773a;
+    font-size: 1.2rem;
+    padding: 5px;
+    border-radius: 8px;
+}

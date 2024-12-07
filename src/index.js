@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import Login from './login';
 import Registro from './registrarse';
+import ListaUsuario from './listausuario';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +15,8 @@ root.render(
       <Routes>
      
         <Route path="/" element={<Login />} /> 
-        <Route path="/registro" element={<Registro />} />  
+        <Route path="/registro" element={<Registro />} /> 
+        <Route path="/listaUsuario" element={<ListaUsuario />} /> 
       </Routes>
     </Router>
 

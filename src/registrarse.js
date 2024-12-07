@@ -5,7 +5,7 @@ import './registrarse.css';
 
 const Registro = () => {
   const [nombre, setNombre] = useState('');
-  const [apellido, setApellido] = useState('');
+  const [correo, setcorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [mensaje, setMensaje] = useState('');
   const [mensajeTipo, setMensajeTipo] = useState('');
@@ -14,7 +14,7 @@ const Registro = () => {
     e.preventDefault();
     setMensaje('');
     setMensajeTipo('');
-    if (!nombre || !apellido || !contraseña) {
+    if (!nombre || !correo || !contraseña) {
         setMensaje('Por favor, completa todos los campos.');
         setMensajeTipo('error');
         return;
@@ -23,7 +23,7 @@ const Registro = () => {
     try {
       const response = await axios.post('http://localhost:2007/api/registrar', {  // Endpoint de registro
         nombre,
-        apellido,
+        correo,
         contraseña
       });
 
@@ -40,7 +40,6 @@ const Registro = () => {
     <div className="registro-container">
       <h2>Registrarse</h2>
 
-      {/* Formulario de Registro */}
       <form onSubmit={registrarUsuario} className="login-form">
         <div className="input-group">
           <label className='label-resgistro'  htmlFor="nombre">Nombre</label>
@@ -55,14 +54,14 @@ const Registro = () => {
           />
         </div>
         <div className="input-group">
-          <label className='label-resgistro'  htmlFor="apellido">Apellido</label>
+          <label className='label-resgistro' htmlFor="Correo">Correo</label>
           <input 
             type="text" 
-            id="apellido" 
-            name="apellido" 
-            placeholder="Ingresa tu apellido" 
-            value={apellido} 
-            onChange={(e) => setApellido(e.target.value)} 
+            id="correo" 
+            name="correo" 
+            placeholder="Ingresa tu Correo" 
+            value={correo} 
+            onChange={(e) => setcorreo(e.target.value)} 
             required 
           />
         </div>

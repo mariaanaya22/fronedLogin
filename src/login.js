@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
+
+
 import './App.css';
 
 const Login = () => {
-  const [nombre, setNombre] = useState('');
-  const [apellido, setApellido] = useState('');
+  const [correo, setcorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [mensaje, setMensaje] = useState('');
 
+  const navigate = useNavigate(); // Inicializa navigate
 
   const enviarLogin = async (e) => {
     e.preventDefault();
     setMensaje(''); 
     try {
-   
       const response = await axios.post('http://localhost:2007/api/login', {
-        nombre,
-        apellido,
+        correo,
         contraseña
       });
 
+      // Guarda el token 
       localStorage.setItem('token', response.data.token);
 
- 
       setMensaje('Login exitoso');
+      navigate('/listaUsuario'); //después de login exitoso
 
     } catch (error) {
       console.error(error);
@@ -39,8 +40,8 @@ const Login = () => {
 
     try {
       const response = await axios.post('http://localhost:2007/api/login', {
-        nombre,
-        apellido,
+      
+        correo,
         contraseña
       });
 
@@ -56,27 +57,16 @@ const Login = () => {
       <h2>Iniciar sesión o Registrarse</h2>
 
       <form onSubmit={enviarLogin} className="login-form">
+      
         <div className="input-group">
-          <label htmlFor="nombre">Nombre</label>
+          <label htmlFor="Correo">Correo</label>
           <input 
             type="text" 
-            id="nombre" 
-            name="nombre" 
-            placeholder="Ingresa tu nombre" 
-            value={nombre} 
-            onChange={(e) => setNombre(e.target.value)} 
-            required 
-          />
-        </div>
-        <div className="input-group">
-          <label htmlFor="apellido">Apellido</label>
-          <input 
-            type="text" 
-            id="apellido" 
-            name="apellido" 
-            placeholder="Ingresa tu apellido" 
-            value={apellido} 
-            onChange={(e) => setApellido(e.target.value)} 
+            id="correo" 
+            name="correo" 
+            placeholder="Ingresa tu Correo" 
+            value={correo} 
+            onChange={(e) => setcorreo(e.target.value)} 
             required 
           />
         </div>
